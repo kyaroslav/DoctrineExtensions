@@ -480,10 +480,10 @@ class SluggableListener extends MappedEventSubscriber
             }
 
             $i = pow(10, $this->exponent);
-            if ($recursing || in_array($generatedSlug, $sameSlugs)) {
+            if ($recursing || in_array(strtolower($generatedSlug), array_map('strtolower', $sameSlugs))) {
                 do {
                     $generatedSlug = $preferredSlug.$config['separator'].$i++;
-                } while (in_array($generatedSlug, $sameSlugs));
+                } while (in_array(strtolower($generatedSlug), array_map('strtolower', $sameSlugs)));
             }
 
             $mapping = $meta->getFieldMapping($config['slug']);
